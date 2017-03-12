@@ -1,0 +1,161 @@
+Testing Techniques
+Pair Programming Glasgow April 2017
+
+Kevin McDermott
+@bigkevmcd
+
+* The basics
+
+* Why test?
+
+- Confidence
+- Next person
+- Onboarding
+- Design
+
+* Fizz Buzz kata
+
+  Write a program that prints the numbers from 1 to 100. But for multiples of
+  three print "Fizz" instead of the number and for the multiples of five print
+  "Buzz". For numbers which are multiples of both three and five print
+  "FizzBuzz?".
+
+* Writing Go tests
+
+* Built-in testing framework.
+
+Provided by the `testing` package and the `go test` command.
+
+.code src/fizzbuzz1_test.go
+
+* Running tests
+
+The `go test` command runs tests for the specified package.
+
+	$ go test
+	PASS
+	ok      fizzbuzz    0.009s
+
+	$ go test -v
+	=== RUN   TestFizzWithMultipleOf3
+	--- PASS: TestFizzWithMultipleOf3 (0.00s)
+	=== RUN   TestFizzWithNonMultipleOf3
+	--- PASS: TestFizzWithNonMultipleOf3 (0.00s)
+	PASS
+	ok      fizzbuzz    0.009s
+
+* Running tests
+
+To run the tests for the entire tree of your project:
+
+	$ go test ./...
+
+To run tests matching a specific regexp:
+
+	$ go test -v -run TestFizzWithMultiple
+
+* My vim setup
+
+`https://github.com/janko-m/vim-test`
+
+*\t* - runs the test under the cursor `:TestNearest`
+*\T* - runs the tests in the current file `:TestFile`
+*\l* - runs the last test `:TestLast`
+*\a* - runs the ./... tests `:TestSuite`
+
+* Useful test failures
+
+.link https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures
+
+ Note that the order here is actual != expected, and the message uses that order too.
+
+* Table-driven tests
+
+Go's struct literal syntax makes it easy to write table-driven tests:
+
+.code src/fizzbuzz2_test.go /START OMIT/,/END OMIT/
+
+* Table-driven tests
+
+	=== RUN   TestFizzBuzzTable
+	--- FAIL: TestFizzBuzzTable (0.00s)
+	        fizzbuzz2_test.go:24: incorrect message for 5: got , expected Buzz
+	        fizzbuzz2_test.go:24: incorrect message for 10: got , expected Buzz
+	        fizzbuzz2_test.go:24: incorrect message for 15: got Fizz, expected FizzBuzz?
+	FAIL
+
+.link https://github.com/golang/go/wiki/TableDrivenTests
+
+* testing.T
+
+The `*testing.T` argument is used for error reporting:
+
+	t.Errorf("incorrect message for 3: got %s, expected Fizz", msg)
+	t.Fatalf("incorrect message for 3: got %s, expected Fizz", msg)
+
+`Fatalf` exits the test immediately.
+
+	=== RUN   TestFizzBuzzTable
+	--- FAIL: TestFizzBuzzTable (0.00s)
+	        fizzbuzz2_test.go:24: incorrect message for 5: got , expected Buzz
+	FAIL
+
+* Subtests...
+
+.code src/fizzbuzz3_test.go /START OMIT/,/END OMIT/
+
+	=== RUN   TestFizz
+	=== RUN   TestFizz/With_multiple_of_3
+	=== RUN   TestFizz/With_non-multiple_of_3
+	--- PASS: TestFizz (0.00s)
+	    --- PASS: TestFizz/With_multiple_of_3 (0.00s)
+	    --- PASS: TestFizz/Withn_non-multiple_of_3 (0.00s)
+	PASS
+
+* Test coverage
+
+The `go` tool can report test coverage statistics.
+
+	$ go test -cover
+	PASS
+	coverage: 100.0% of statements
+	ok      fizzbuzz    0.009s
+
+The `go` tool can generate coverage profiles that may be intepreted by the `cover` tool.
+
+	$ go test -coverprofile=fizzbuzz.out
+	PASS
+	coverage: 100.0% of statements
+	ok      fizzbuzz    0.009s
+	$ go tool cover -func=fizzbuzz.out
+	fizzbuzz/fizzbuzz.go:3: FizzBuzz    100.0%
+	total:          (statements)    100.0%
+
+* Integration setup
+
+.code src/integration/redis_test.go /SETUP OMIT/,/ENDSETUP OMIT/
+
+* Integration setup
+
+.code src/integration/redis_test.go /TEST OMIT/,/ENDTEST OMIT/
+
+* Setup and teardown
+
+.code src/integration/redis2_test.go /TEST OMIT/,/ENDTEST OMIT/
+
+* Setup and teardown fail
+
+	=== RUN   TestRedis
+	=== RUN   TestRedis/Set_initial_value
+	=== RUN   TestRedis/Handle_no_initial_value
+	--- FAIL: TestRedis (0.01s)
+	    --- PASS: TestRedis/Set_initial_value (0.00s)
+	    --- FAIL: TestRedis/Handle_no_initial_value (0.00s)
+	        redis2_test.go:39: unexpected result: got 'value', expected nil
+	FAIL
+	exit status 1
+	FAIL    glasgowtdd/integration  0.017s
+
+* Implementing setup and teardown
+
+.code src/integration/redis3_test.go /SETUP OMIT/,/ENDSETUP OMIT/
