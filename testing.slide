@@ -131,6 +131,18 @@ The `go` tool can generate coverage profiles that may be intepreted by the `cove
 	fizzbuzz/fizzbuzz.go:3: FizzBuzz    100.0%
 	total:          (statements)    100.0%
 
+* Testable Code
+
+- Just as important as writing tests, is writing code that can be tested easily.
+- "this can't be tested" - usually because it's written in a way that makes it
+  hard to test.
+- Rewrite for testability!
+
+
+* Print!
+
+
+
 * Integration setup
 
 .code src/integration/redis_test.go /SETUP OMIT/,/ENDSETUP OMIT/
