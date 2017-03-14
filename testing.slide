@@ -26,7 +26,7 @@ Kevin McDermott
 
 Provided by the `testing` package and the `go test` command.
 
-.code src/fizzbuzz1_test.go
+.code src/fizzbuzz1/fizzbuzz_test.go
 
 * Running tests
 
@@ -73,15 +73,15 @@ To run tests matching a specific regexp:
 
 Go's struct literal syntax makes it easy to write table-driven tests:
 
-.code src/fizzbuzz2_test.go /START OMIT/,/END OMIT/
+.code src/fizzbuzz2/fizzbuzz_test.go /START OMIT/,/END OMIT/
 
 * Table-driven tests
 
 	=== RUN   TestFizzBuzzTable
 	--- FAIL: TestFizzBuzzTable (0.00s)
-	        fizzbuzz2_test.go:24: incorrect message for 5: got , expected Buzz
-	        fizzbuzz2_test.go:24: incorrect message for 10: got , expected Buzz
-	        fizzbuzz2_test.go:24: incorrect message for 15: got Fizz, expected FizzBuzz?
+	        fizzbuzz_test.go:24: incorrect message for 5: got , expected Buzz
+	        fizzbuzz_test.go:24: incorrect message for 10: got , expected Buzz
+	        fizzbuzz_test.go:24: incorrect message for 15: got Fizz, expected FizzBuzz?
 	FAIL
 
 .link https://github.com/golang/go/wiki/TableDrivenTests
@@ -102,7 +102,7 @@ The `*testing.T` argument is used for error reporting:
 
 * Subtests...
 
-.code src/fizzbuzz3_test.go /START OMIT/,/END OMIT/
+.code src/fizzbuzz3/fizzbuzz_test.go /START OMIT/,/END OMIT/
 
 	=== RUN   TestFizz
 	=== RUN   TestFizz/With_multiple_of_3
@@ -133,14 +133,14 @@ The `go` tool can generate coverage profiles that may be intepreted by the `cove
 
 * Testable Code
 
-- Just as important as writing tests, is writing code that can be tested easily.
-- "this can't be tested" - usually because it's written in a way that makes it
-  hard to test.
+- Just as important as writing tests, is writing code that can be tested easily
+- "this can't be tested" - usually because it's written in a way that makes it hard to test
 - Rewrite for testability!
 
 
 * Print!
 
+.code src/fizzbuzz4/fizzbuzz.go /PRINTER OMIT/,/ENDPRINTER OMIT/
 
 
 * Integration setup
