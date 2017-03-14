@@ -143,6 +143,8 @@ The `go` tool can generate coverage profiles that may be intepreted by the `cove
 .code src/fizzbuzz4/fizzbuzz.go /PRINTER OMIT/,/ENDPRINTER OMIT/
 
 
+* Fixtures!
+
 * Integration setup
 
 .code src/integration/redis_test.go /SETUP OMIT/,/ENDSETUP OMIT/
