@@ -9,7 +9,7 @@ func TestFizzWithMultipleOf3(t *testing.T) {
 }
 
 func TestFizzWithNonMultipleOf3(t *testing.T) {
-	if msg := FizzBuzz(4); msg == "Fizz" {
-		t.Errorf("incorrect message for 4: got %s, expected ''", msg)
+	if msg := FizzBuzz(4); msg != "4" {
+		t.Errorf("incorrect message for 4: got %s, expected '4'", msg)
 	}
 }
