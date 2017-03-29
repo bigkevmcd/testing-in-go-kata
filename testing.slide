@@ -46,10 +46,6 @@ The `go test` command runs tests for the specified package.
 
 * Running tests
 
-Running tests with verbosity (outputs the tests as they're discovered).
-
-	$ go test -v .
-
 To run the tests for the entire tree of your project:
 
 	$ go test ./...
@@ -141,11 +137,15 @@ The `go` tool can generate coverage profiles that may be intepreted by the `cove
 - "this can't be tested" - usually because it's written in a way that makes it hard to test
 - Rewrite for testability!
 
-
 * Print!
 
 .code src/fizzbuzz4/fizzbuzz.go /PRINTER OMIT/,/ENDPRINTER OMIT/
 
+TODO
+
+* Closures
+
+.code src/fizzbuzz5/fizzbuzz.go /PRINTER OMIT/,/ENDPRINTER OMIT/
 
 * Fixtures!
 
@@ -177,3 +177,56 @@ The `go` tool can generate coverage profiles that may be intepreted by the `cove
 * Implementing setup and teardown
 
 .code src/integration/redis3_test.go /SETUP OMIT/,/ENDSETUP OMIT/
+
+* Dojo Kun
+
+- We respect each others’ commitment
+- = no phones, email, Facebook... Focus!
+- We all do TDD
+- We all do Pair Programming
+- We swap partners each cycle
+- We follow ‘Simple Design' rules
+
+* Simple Design
+
+Simple Design is code that:
+
+1. Passes all the tests
+2. Is clear, expressive and consistent
+3. Duplicates no behaviour or configuration
+4. Minimises the number of classes and methods and modules
+
+* Mission to Mars Kata
+
+- We are sending robot rovers to Mars
+- The robots will land on a flat-topped black Mesa, which as it happens is strangely rectangular...
+- We will get sent a command sequence from Prestwick Space Centre
+- This will start with a maximum X & Y specification of the size of the Mesa
+
+http://bit.ly/2ofeEF0
+
+* Robots
+
+- Each robot is initialised with single-digit coordinates and a facing N, S, E or W
+- Rovers can be signalled with instructions:
+- ‘L’ = Turn Left
+- ‘R’ = Turn Right
+- ‘F’ = Move Forward
+
+* Sample instructions
+
+.code sample_commands.txt
+
+* Expected output
+
+- The expected output from your code will be for each robot: its position as X and Y coordinates and facing separated by single spaces e.g.
+
+1 1 W
+
+* Begin
+
+* Mission Update
+
+- *Alert!* Robots are being lost falling off the edge of the Mesa!
+- To stop this, all robots are now fitted with scent markers to mark where a robot leaves the Mesa and in which direction
+- A robot that is instructed to move off the Mesa where another robot has previously been lost will ignore the order
