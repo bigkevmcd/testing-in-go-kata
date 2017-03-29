@@ -46,6 +46,10 @@ The `go test` command runs tests for the specified package.
 
 * Running tests
 
+Running tests with verbosity (outputs the tests as they're discovered).
+
+	$ go test -v .
+
 To run the tests for the entire tree of your project:
 
 	$ go test ./...
