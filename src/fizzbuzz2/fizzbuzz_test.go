@@ -2,7 +2,6 @@ package fizzbuzz
 
 import "testing"
 
-//START OMIT
 func TestFizzBuzzTable(t *testing.T) {
 	tests := []struct {
 		n   int
@@ -25,5 +24,3 @@ func TestFizzBuzzTable(t *testing.T) {
 		}
 	}
 }
-
-//END OMIT

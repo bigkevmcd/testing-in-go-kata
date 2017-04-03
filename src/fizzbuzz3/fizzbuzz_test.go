@@ -2,7 +2,6 @@ package fizzbuzz
 
 import "testing"
 
-//START OMIT
 func TestFizz(t *testing.T) {
 	t.Run("With multiple of 3", func(t *testing.T) {
 		if msg := FizzBuzz(3); msg != "Fizz" {
@@ -16,5 +15,3 @@ func TestFizz(t *testing.T) {
 		}
 	})
 }
-
-//END OMIT

@@ -2,17 +2,19 @@ package fizzbuzz
 
 import "strconv"
 
-type Printer func(string)
+type Printer interface {
+	Print(v string)
+}
 
 func FizzBuzz(p Printer, n int) {
 	switch {
 	case (n%3 == 0 && n%5 == 0):
-		p("FizzBuzz")
+		p.Print("FizzBuzz?")
 	case n%3 == 0:
-		p("Fizz")
+		p.Print("Fizz")
 	case n%5 == 0:
-		p("Buzz")
+		p.Print("Buzz")
 	default:
-		p(strconv.Itoa(n))
+		p.Print(strconv.Itoa(n))
 	}
 }
