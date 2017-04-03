@@ -8,7 +8,6 @@ import (
 	"github.com/soveran/redisurl"
 )
 
-//TESTSTART OMIT
 func TestRedis(t *testing.T) {
 	t.Run("Set initial value", setupAndTeardown(func(t *testing.T, pool *redis.Pool) {
 		c := pool.Get()
@@ -40,10 +39,6 @@ func TestRedis(t *testing.T) {
 
 }
 
-//TESTEND OMIT
-
-//ENDTEST OMIT
-
 func setupRedisPool(t *testing.T) (*redis.Pool, func()) {
 	redisURL := os.Getenv("REDIS_URL")
 	if redisURL == "" {
@@ -69,7 +64,6 @@ func setupRedisPool(t *testing.T) (*redis.Pool, func()) {
 	}
 }
 
-//SETUP OMIT
 func setupAndTeardown(test func(t *testing.T, p *redis.Pool)) func(t *testing.T) {
 	return func(t *testing.T) {
 		pool, cleanup := setupRedisPool(t)
@@ -77,5 +71,3 @@ func setupAndTeardown(test func(t *testing.T, p *redis.Pool)) func(t *testing.T)
 		test(t, pool)
 	}
 }
-
-//ENDSETUP OMIT

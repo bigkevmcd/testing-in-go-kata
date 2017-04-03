@@ -1,19 +1,21 @@
 package fizzbuzz
 
+import "strconv"
+
 // PRINTER OMIT
-type Printer func(string) error
+type Printer func(string)
 
 // ENDPRINTER OMIT
 
 func FizzBuzz(p Printer, n int) {
 	switch {
 	case (n%3 == 0 && n%5 == 0):
-		p("FizzBuzz?")
+		p("FizzBuzz")
 	case n%3 == 0:
 		p("Fizz")
 	case n%5 == 0:
 		p("Buzz")
 	default:
-		return
+		p(strconv.Itoa(n))
 	}
 }

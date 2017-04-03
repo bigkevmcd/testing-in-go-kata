@@ -1,11 +1,10 @@
 package fizzbuzz
 
-// PRINTER OMIT
-type Printer interface {
-	Print(v ...interface{})
-}
+import "strconv"
 
-// ENDPRINTER OMIT
+type Printer interface {
+	Print(v string)
+}
 
 func FizzBuzz(p Printer, n int) {
 	switch {
@@ -16,6 +15,6 @@ func FizzBuzz(p Printer, n int) {
 	case n%5 == 0:
 		p.Print("Buzz")
 	default:
-		return
+		p.Print(strconv.Itoa(n))
 	}
 }

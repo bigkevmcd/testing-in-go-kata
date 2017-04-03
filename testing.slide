@@ -63,6 +63,12 @@ To run tests matching a specific regexp:
 *\l* - runs the last test `:TestLast`
 *\a* - runs the ./... tests `:TestSuite`
 
+* vim-go
+ 
+`https://github.com/fatih/vim-go`
+
+ GoImports
+
 * Useful test failures
 
 .link https://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures
@@ -199,9 +205,8 @@ Simple Design is code that:
 * Mission to Mars Kata
 
 - We are sending robot rovers to Mars
-- The robots will land on a flat-topped black Mesa, which as it happens is strangely rectangular...
+- We have a 2D map of Mars in a grid reference (think lat/lon)
 - We will get sent a command sequence from Prestwick Space Centre
-- This will start with a maximum X & Y specification of the size of the Mesa
 
 http://bit.ly/2ofeEF0
 
@@ -209,9 +214,9 @@ http://bit.ly/2ofeEF0
 
 - Each robot is initialised with single-digit coordinates and a facing N, S, E or W
 - Rovers can be signalled with instructions:
-- ‘L’ = Turn Left
-- ‘R’ = Turn Right
-- ‘F’ = Move Forward
+ - ‘L’ = Turn Left
+ - ‘R’ = Turn Right
+ - ‘F’ = Move Forward
 
 * Sample instructions
 
