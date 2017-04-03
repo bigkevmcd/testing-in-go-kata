@@ -1,7 +1,6 @@
 package integration
 
 import (
-	"os"
 	"testing"
 
 	"github.com/garyburd/redigo/redis"
@@ -26,11 +25,7 @@ func TestRedis(t *testing.T) {
 }
 
 func setupRedisPool(t *testing.T) (*redis.Pool, func()) {
-	redisURL := os.Getenv("REDIS_URL")
-	if redisURL == "" {
-		t.Fatal("no REDIS_URL configured")
-	}
-
+	redisURL := "redis://localhost:6379"
 	pool := &redis.Pool{
 		Dial: func() (redis.Conn, error) {
 			conn, err := redisurl.ConnectToURL(redisURL)

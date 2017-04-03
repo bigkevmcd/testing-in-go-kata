@@ -1,7 +1,6 @@
 package integration
 
 import (
-	"os"
 	"testing"
 
 	"github.com/garyburd/redigo/redis"
@@ -9,41 +8,36 @@ import (
 )
 
 func TestRedis(t *testing.T) {
-	t.Run("Set initial value", setupAndTeardown(func(t *testing.T, pool *redis.Pool) {
+	pool, cleanup := setupRedisPool(t)
+	defer cleanup()
+	t.Run("Set initial value", func(t *testing.T) {
 		c := pool.Get()
 		defer c.Close()
-
 		res, err := c.Do("SET", "testing", "value")
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		if res != "OK" {
-			t.Fatal("unexpected result: got %s, expected OK", res)
+			t.Fatalf("unexpected result: got '%s', expected OK", res)
 		}
-	}))
-
-	t.Run("Handle no initial value", setupAndTeardown(func(t *testing.T, pool *redis.Pool) {
+	})
+	t.Run("Handle no initial value", func(t *testing.T) {
 		c := pool.Get()
 		defer c.Close()
-
 		res, err := c.Do("GET", "testing")
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		if res != nil {
-			t.Fatal("unexpected result: got %s, expected nil", res)
+			t.Fatalf("unexpected result: got '%s', expected nil", res) // HL
 		}
-	}))
-
+	})
 }
 
 func setupRedisPool(t *testing.T) (*redis.Pool, func()) {
-	redisURL := os.Getenv("REDIS_URL")
-	if redisURL == "" {
-		t.Fatal("no REDIS_URL configured")
-	}
+	redisURL := "redis://localhost:6379"
 
 	pool := &redis.Pool{
 		Dial: func() (redis.Conn, error) {
@@ -61,13 +55,5 @@ func setupRedisPool(t *testing.T) (*redis.Pool, func()) {
 		c := pool.Get()
 		c.Do("FLUSHALL")
 		pool.Close()
-	}
-}
-
-func setupAndTeardown(test func(t *testing.T, p *redis.Pool)) func(t *testing.T) {
-	return func(t *testing.T) {
-		pool, cleanup := setupRedisPool(t)
-		defer cleanup()
-		test(t, pool)
 	}
 }
